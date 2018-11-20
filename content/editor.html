@@ -2,10 +2,12 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Ace Editor sample</title>
+  <title>Latex Editor</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+  <h1>Latex Editor</h1>
   <div class="btn-group">
     <div class="btn-group">
       <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i> <span class="caret"></span></button>
@@ -18,7 +20,7 @@
     <button id="bold" class="btn btn-default"><i class="glyphicon glyphicon-bold"></i></button>
     <button id="save" class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button>
     <button id="load" class="btn btn-default"><i class="glyphicon glyphicon-folder-open"></i></button>
-    <button id="latex_temp" class="btn btn-default">L<i class="glyphicon glyphicon-latex"></i></button>
+    <button id="section" class="btn btn-default">section</button>
   </div>
   <div id="editor" style="height: 600px">
 \documentclass{jsarticle}
@@ -68,8 +70,11 @@
       if (!confirm("読み込みますか？")) return;
       editor.setValue(localStorage.text, -1);
     });
-    $('#latex_temp').click(function(e){
-      editor.insert('\\begin{document}' + editor.getCopyText() + '\n' + '\\end{document}');
+    $('#section').click(function(e){
+      editor.insert('\\section{}' + editor.getCopyText());
+    });
+    $('#picture').click(function(e){
+      editor.insert('\\section{}' + editor.getCopyText());
     });
   </script>
 </body>
