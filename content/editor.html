@@ -21,6 +21,7 @@
     <button id="save" class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button>
     <button id="load" class="btn btn-default"><i class="glyphicon glyphicon-folder-open"></i></button>
     <button id="section" class="btn btn-default">section</button>
+    <button id="picture" class="btn btn-default">picture</button>
   </div>
   <div id="editor" style="height: 600px">
 \documentclass{jsarticle}
@@ -71,10 +72,15 @@
       editor.setValue(localStorage.text, -1);
     });
     $('#section').click(function(e){
-      editor.insert('\\section{}' + editor.getCopyText());
+      editor.insert('\\section{' + editor.getCopyText() + '}');
     });
     $('#picture').click(function(e){
-      editor.insert('\\section{}' + editor.getCopyText());
+      editor.insert('\\begin{figure}\n' + ' \\centering\n' + 
+        ' \\includegraphics[width=10cm]{画像ファイル名}\n' + 
+        ' \\caption{題名}\n' +
+        ' \\label{ラベル名}\n' +
+        '\\end{figure}\n' + editor.getCopyText()
+      );
     });
   </script>
 </body>
