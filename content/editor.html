@@ -23,6 +23,7 @@
     <button id="section" class="btn btn-default">section</button>
     <button id="graphic" class="btn btn-default">graphic</button>
     <button id="itemize" class="btn btn-default">itemize</button>
+    <button id="math" class="btn btn-default">math</button>
   </div>
   <div id="editor" style="height: 600px">
 \documentclass{jsarticle}
@@ -89,6 +90,9 @@
           '\\item \n' + 
           '\\item \n' +
           '\\end{itemize}');
+    });
+    $('#math').click(function(e){
+      editor.insert('\\[ ' + editor.getCopyText() + '\\]');
     });
   </script>
 </body>
