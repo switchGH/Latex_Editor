@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1><%= title %></h1>
+  <div class="btn-group">
+    <div class="btn-group">
+      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i> <span class="caret"></span></button>
+      <ul class="dropdown-menu" id="font-size">
+        <li><a href="#" data-size="10">小さい</a></li>
+        <li><a href="#" data-size="12">普通</a></li>
+        <li><a href="#" data-size="14">大きい</a></li>
+      </ul>
+    </div>
+    <button id="bold" class="btn btn-default"><i class="glyphicon glyphicon-bold"></i></button>
+    <button id="save" class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button>
+    <button id="load" class="btn btn-default"><i class="glyphicon glyphicon-folder-open"></i></button>
+    <button id="section" class="btn btn-default">section</button>
+    <button id="graphic" class="btn btn-default">graphic</button>
+    <button id="itemize" class="btn btn-default">itemize</button>
+    <button id="math" class="btn btn-default">math</button>
+  </div>
+  <div id="editor" style="height: 600px">
+\documentclass{jsarticle}
+%\usepackage[dvips]{graphicx}
+\usepackage[dvipdfmx]{graphicx}
+\setlength{\textheight}{24cm}
+\setlength{\topmargin}{-1.5cm}
+\setlength{\textwidth}{17cm}
+\setlength{\oddsidemargin}{-.5cm}
+\usepackage{here}
+      
+      
+\title{タイトル}
+\author{名前} % 氏名（学番号）
+\date{○年○月○日（○）} % 提出期限
+      
+\begin{document}
+\maketitle
+      
+\tableofcontents
+\newpage
+      
+\section{はじめに}
+
+\end{document}
+  </div>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
+  <script>
+    var editor = ace.edit("editor");
+    editor.$blockScrolling = Infinity;
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/html");
+
+    $('#font-size').click(function(e) {
+      editor.setFontSize($(e.target).data('size'));
+    });
+    $('#bold').click(function(e) {
+      editor.insert('<strong>' + editor.getCopyText() + '</strong>');
+    });
+    $('#save').click(function(e) {
+      localStorage.text = editor.getValue();
+      alert("保存しました。");
+    });
+    $('#load').click(function(e) {
+      if (!confirm("読み込みますか？")) return;
+      editor.setValue(localStorage.text, -1);
+    });
+    $('#section').click(function(e){
+      editor.insert('\\section{' + editor.getCopyText() + '}');
+    });
+    $('#graphic').click(function(e){
+      editor.insert('\\begin{figure}\n' + ' \\centering\n' + 
+        ' \\includegraphics[width=10cm]{画像ファイル名}\n' + 
+        ' \\caption{題名}\n' +
+        ' \\label{ラベル名}\n' +
+        '\\end{figure}\n' + editor.getCopyText()
+      );
+    });
+    $('#itemize').click(function(e) {
+      editor.insert('\\begin{itemize}\n' + 
+          '\\item \n' + 
+          '\\item \n' + 
+          '\\item \n' +
+          '\\end{itemize}');
+    });
+    $('#math').click(function(e){
+      editor.insert('\\[ ' + editor.getCopyText() + '\\]');
+    });
+  </script>
+</body>
+</html>
