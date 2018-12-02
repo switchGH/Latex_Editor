@@ -8,11 +8,23 @@
 <body>
   <h1><%= title %></h1>
   <div class="btn-group">
-    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i> <span class="caret"></span></button>
-    <ul class="dropdown-menu" id="font-size">
-    </ul>
     <button id="save" class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button>
-    <button id="section" class="btn btn-default">section</button>
+      <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">見出し<span class="caret"></span></button>
+        <ul class="dropdown-menu" id="midashi">
+        <button id="section" class="btn btn-default">\section</button>
+        <button id="subsection" class="btn btn-default">\subsection</button>
+        <button id="subsubsection" class="btn btn-default">\subsubsection</button>
+        </ul>
+      </div>
+      <div class="btn-group">
+          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">箇条<span class="caret"></span></button>
+          <ul class="dropdown-menu" id="kajyo">
+              <button id="itemize" class="btn btn-default">記号付き</button>
+              <button id="enumerate" class="btn btn-default">番号付き</button>
+              <button id="description" class="btn btn-default">見出し付き</button>
+          </ul>
+      </div>
   </div>
   <div id="editor" style="height: 600px"></div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -37,6 +49,21 @@
     });
     $('#section').click(function(e){
       editor.insert('\\section{' + editor.getCopyText() + '}\n');
+    });
+    $('#subsection').click(function(e){
+      editor.insert('\\subsection{' + editor.getCopyText() + '}\n');
+    });
+    $('#subsubsection').click(function(e){
+      editor.insert('\\subsubsection{' + editor.getCopyText() + '}\n');
+    });
+    $('#itemize').click(function(e){
+      editor.insert('\\begin{itemize}\n  \\item' + editor.getCopyText() + '\n\\end{itemize}');
+    });
+    $('#enumerate').click(function(e){
+      editor.insert('\\begin{enumerate}\n  \\item' + editor.getCopyText() + '\n\\end{enumerate}');
+    });
+    $('#description').click(function(e){
+      editor.insert('\\begin{description}\n  \\item[]' + editor.getCopyText() + '\n\\end{description}');
     });
   </script>
 </body>
