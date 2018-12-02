@@ -6,12 +6,14 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+  <h1><%= title %></h1>
   <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i> <span class="caret"></span></button>
     <ul class="dropdown-menu" id="font-size">
+    </ul>
     <button id="save" class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button>
+    <button id="section" class="btn btn-default">section</button>
   </div>
-  <h1><%= title %></h1>
   <div id="editor" style="height: 600px"></div>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -32,6 +34,9 @@
         data: {'msg': editor.getValue()},
         dataType: 'json'
       });
+    });
+    $('#section').click(function(e){
+      editor.insert('\\section{' + editor.getCopyText() + '}\n');
     });
   </script>
 </body>
