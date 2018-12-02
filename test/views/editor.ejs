@@ -3,13 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title><%= title %></title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+  <div class="btn-group">
+    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i> <span class="caret"></span></button>
+    <ul class="dropdown-menu" id="font-size">
+    <button id="save" class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button>
+  </div>
   <h1><%= title %></h1>
   <div id="editor" style="height: 600px"></div>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
   <script>
-    ace.edit("editor");
+    var editor = ace.edit("editor");
+    editor.$blockScrolling = Infinity;
+    editor.setOptions({
+      enableEmmet: true
+    });
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/html");
+    $('#save').click(function(e) {
+      //alert(editor.getValue());
+      $.ajax({
+        url: 'http://localhost:3000/editor',
+        type: 'post',
+        data: {'msg': editor.getValue()},
+        dataType: 'json'
+      });
+    });
   </script>
 </body>
 </html>
