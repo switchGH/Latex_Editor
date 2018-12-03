@@ -8,15 +8,14 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   var obj = {}; 
-  //console.log('body: ' + JSON.stringify(req.body.msg));
   jsonData = JSON.stringify(req.body.msg);
-  var arr = jsonData.split(/\r\n|\\n/);
-  console.log(arr);
+  var arr = jsonData.split(/\\n/);
   for (var i = 0; i < arr.length; i++){
     console.log(arr[i]);
+    fs.appendFileSync('sample.tex', arr[i] + '\n', function (err) {
+      console.log(err);
+    });
   }
-  fs.writeFileSync('sample.tex', arr);
-  //fs.writeFileSync('sample.txt', JSON.stringify(req.body.msg));
   var rejson = JSON.stringify(req.body);
   res.send(rejson);
 });
