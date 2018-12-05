@@ -8,9 +8,8 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   jsonData = JSON.stringify(req.body.msg).slice(1, -1);
-  
-  console.log(jsonData);
-  var arr = jsonData.split(/\\n/);
+  //jsonを受け取り、文頭・文末の「"」を削除する
+  var arr = jsonData.split(/\\n/);//改行で分割し、配列に格納する
   for (var i = 0; i < arr.length; i++){
     console.log(arr[i]);
     arr[i] = arr[i].replace(/\\\\/g, '\\');
@@ -18,15 +17,7 @@ router.post('/', (req, res, next) => {
       console.log(err);
     });
   }
-  // jsonData = JSON.parse(req.body.msg);
-  // // jsonDataにユーザーが入力した文字列が入っている
-  // console.log(jsonData);
-
-  // fs.writeFileSync('sample.tex', jsonData, function (err) {
-  //   console.log(err);
-  // });
-  var rejson = JSON.stringify(req.body);
-  res.send(rejson);
+  res.send(jsonData);
 });
 
 module.exports = router;
