@@ -7,7 +7,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  jsonData = JSON.stringify(req.body.msg);
+  jsonData = JSON.stringify(req.body.msg).slice(1, -1);
+  
   console.log(jsonData);
   var arr = jsonData.split(/\\n/);
   for (var i = 0; i < arr.length; i++){
